@@ -1,6 +1,13 @@
 #include "calc.h"
 
 
+struct stack
+{
+    int top;
+    int data[SIZE];
+};
+
+
 
 
 int evaluate(char expression[])
@@ -12,8 +19,9 @@ int evaluate(char expression[])
 
         if(isDigit(expression[i]))
         {
-            printf("%c",expression[i]);
+            operand = operand*10+(expression[i]-'0');
         }
+        
     }
 
 }
