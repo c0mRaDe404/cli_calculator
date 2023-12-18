@@ -1,17 +1,34 @@
+/**
+ * 
+ *  @file   main.c
+ *  @author cOmRaDe404
+ *  @brief  Here's where the lexing and parsing happens.
+ * 
+ */
+
+
+
 #include "calc.h"
+#include "Stack.h"
 
 
-struct stack
-{
-    int top;
-    int data[SIZE];
-};
 
+
+Stack operand;
+Stack operator;
 
 
 
 int evaluate(char expression[])
 {
+    operand.top = operator.top = -1;
+
+    push(&operand,20);
+
+
+    printf("data is %d and postion is %d",operand.data[0],operand.top);
+
+
 
     for(int i = 0;expression[i] != '\0';i++)
     {

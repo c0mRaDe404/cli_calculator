@@ -1,4 +1,17 @@
+/**
+ *  @file   main.c
+ *  @author cOmRaDe404
+ *  @brief  Main file 
+ * 
+ *  It's Just Driver Code,That's It Mate!
+ * 
+ */
+
+
+
 #include "calc.h"
+#include "Stack.h"
+
 
 int main(void)
 {
