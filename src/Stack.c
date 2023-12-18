@@ -56,17 +56,3 @@ int isEmpty(Stack* s)
 
 
 
-// Stack num;
-
-// int main()
-
-// {
-   
-
-//     num.top = -1;
-//     push(&num,10);
-//     push(&num,20);
-
-//     printf("%d",num.data[1]); 
-
-// }
