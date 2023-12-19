@@ -14,47 +14,89 @@
 
 
 
-Stack operand;
-Stack operator;
+
+
+
+Token Current_operator,Stack_operator; /*enum for tokens*/
+
+
+Stack operand; /* Stack for operand */
+Stack operator; /* Stack for operator */
 
 
 
 int evaluate(char expression[])
 {
-    operand.top = operator.top = -1;
+    operand.top = operator.top = -1; // Setting up both operand & operator stack's top 
+
 
    
 
     for(int i = 0;expression[i] != '\0';)
     {
-        int Operand = 0;
+        int Operand = 0; //holds the number which converted from string\
+
+        Current_operator = checkOperator(expression[i]); // gets the current operator precedence value
+        Stack_operator = checkOperator(operator.data[operator.top]); //gets stack operator precedence
 
         
         while(isDigit(expression[i]))
         {
-            Operand = Operand*10+(expression[i]-'0');
+            Operand = Operand*10+(expression[i]-'0'); //converts the string to int (char by char conversion)
             i++;
         }
-
-        push(&operand,Operand);
-        
-
-         if (isSymbol(expression[i]))
-        {
-            push(&operator,expression[i]);
-            i++;
-        }
-   
-        
-    } // << Loop ends here
+        push(&operand,Operand); //pushing the final value of Operand onto operand stack
 
 
-    printf("%d\n",operand.data[0]);
-      printf("%d\n",operand.data[1]);
-        printf("%c\n",operator.data[0]);
-          printf("%c\n",operator.data[1]);
+
+
+        if (isSymbol(expression[i]))
+            {
+                if(isEmpty(&operator))
+                {
+                push(&operator,expression[i]);
+                }
+
+
+                 if(Current_operator < Stack_operator)
+                {
+                    printf("%d\n",Current_operator);
+                    printf("%d",Stack_operator);
+                    //push(&operand,Calculator(pop(&operand)));
+                }
+
+
+
+
+                i++; // << Increment dont touch it at all cost
+            }   
+
+    }
+
+
+
+
+    // for(int i = 0;i<10;i++)
+    // {
+    //         printf("%d\n",operand.data[i]);
+    // //                                                      <<    debugging purpose    
+    //        // printf("%c\n",operator.data[i]);
+    // }
+    
+       
+
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -75,9 +117,69 @@ int isSymbol(char symbol)
 
 }
 
-int checkPriority(char symbol)
+
+
+
+
+
+int checkOperator(char symbol)
 {
-    if(symbol == '+' || symbol == '-') return 0;
-    if(symbol == '*' || symbol == '/') return 1;
-    if(symbol == '(' || symbol == ')') return 2;
+    switch (symbol)
+    {
+    case '+':
+        return PLUS;
+        
+
+    case '-':
+        return MINUS;
+        
+
+    case '*':
+        return MULTIPLY;
+    
+
+    case '/':
+        return DIVIDE;
+        
+
+    case '^':
+        return EXP;
+
+    case '(':
+        return L_PAREN;
+
+    case ')':
+        return R_PAREN;    
+    
+    default:
+        break;
+    }
+
+}
+
+int Calculator(char symbol)
+{
+
+    int operand1 = pop(&operand);
+    int operand2 = pop(&operand);
+
+    switch (symbol)
+    {
+
+    case '+':
+        return operand2+operand1;
+
+    case '-':
+        return operand2-operand1;
+    
+    case '*':
+        return operand2*operand1;
+
+    case '/':
+        return operand2/operand1;
+
+    default:
+        break;
+    }
+
 }

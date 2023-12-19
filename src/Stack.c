@@ -19,7 +19,7 @@ void push(Stack* s,int data)
 
     else 
     {
-        fprintf(stderr,"StackOverFlowError:Stack is Full");
+        fprintf(stderr,"\nStackOverFlowError:Stack is Full");
     }
 }
 
@@ -32,7 +32,7 @@ int pop(Stack* s)
 
     else
     {
-    fprintf(stderr,"StackUnderFlow:Stack is Empty");
+    fprintf(stderr,"\nStackUnderFlow:Stack is Empty");
     }
 }
 
