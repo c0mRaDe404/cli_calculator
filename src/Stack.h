@@ -3,6 +3,8 @@
 #ifndef STACK_H
 #define STACK_H
 
+
+
 #define SIZE 100
 
 typedef struct
@@ -14,8 +16,11 @@ typedef struct
 
 
 void push(Stack*,int);
+
 int pop(Stack*);
+
 int isFull(Stack*);
+
 int isEmpty(Stack*);
 
 #endif
