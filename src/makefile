@@ -1,8 +1,12 @@
-.PHONY = clean
+.PHONY = clean 
+.PHONY = run
 
-OBJECTS = Stack.h Stack.c calc.h main.c calc.c
-calc: $(OBJECTS)
-	@gcc $(OBJECTS) -o calc
-	
+CC = gcc
+OBJECTS =  stack.c main.c calc.c
+CFLAGS = -I../include/
+TARGET = calc
+
+$(TARGET): $(OBJECTS)
+	@$(CC) $(CFLAGS)  $^ -o $@
 clean:
 	@rm -rf *.gch *.out calc 

@@ -3,8 +3,6 @@
 #ifndef STACK_H
 #define STACK_H
 
-
-
 #define SIZE 100
 
 typedef struct
@@ -12,15 +10,14 @@ typedef struct
     int top;
     int data[SIZE];
 
-}Stack;
+} Stack;
 
+void push(Stack *, int);
 
-void push(Stack*,int);
+int pop(Stack *);
 
-int pop(Stack*);
+int isFull(Stack *);
 
-int isFull(Stack*);
-
-int isEmpty(Stack*);
+int isEmpty(Stack *);
 
 #endif

@@ -24,13 +24,9 @@ typedef enum
     EXP=4,
 
 
-    //Parantheses
-    L_PAREN=1,
-    R_PAREN=1,
-    L_CURLY =1,
-    R_CURLY =1,
-    L_SQUARE =1,
-    R_SQUARE =1
+    //Parantheses and brackets
+    L_BRACKET = 0,
+    R_BRACKET = 0
 
 
 }Token;
@@ -38,9 +34,13 @@ typedef enum
 
 
 int isDigit(char);
+
 int checkOperator(char);
+
 int isSymbol(char);
+
 int evaluate(char*);
+
 int Calculator(char);
 
 #endif

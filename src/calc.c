@@ -8,8 +8,8 @@
 
 
 
-#include "calc.h"
-#include "Stack.h"
+#include <calc.h>
+#include <stack.h>
 
 
 
@@ -42,7 +42,7 @@ int evaluate(char* expression)
     while (expression[i] != '\0')
     {
  
-         int Operand = 0 ;//holds the number which converted from string
+         int Operand = 0;//holds the number which converted from string
 
               
         while(isDigit(expression[i]))
@@ -50,32 +50,23 @@ int evaluate(char* expression)
             Operand = Operand*10+(expression[i]-'0'); //converts the string to int (char by char conversion)
             i++;
         }
-
         push(&operand,Operand); //pushing the final value of Operand onto operand stack
-
-
-
+       
 
         if (isSymbol(expression[i]))
             {
-                check: /* label for goto statement */
                     Current_operator  = checkOperator(expression[i]); /* operator we're handling right now*/
                     Stack_operator    = checkOperator(operator.data[operator.top]); /*operator which is now in the top of the operator stack*/
 
-
-                    if(!(isEmpty(&operator)))
+                    
+                    if(!(isEmpty(&operator))&& Stack_operator >= Current_operator)
                     {
-
-                  
-
-                        if(Stack_operator >= Current_operator) /*comparing both operators precedence*/
-                            {
-                                char symbol = (char)pop(&operator); /*we've stored symbols as ASCII in the operator stack,So we're typecasting the corresponding ASCII to operator*/
-                                Calculator(symbol); /*Passing the operator into Calculator function to calculate the value*/
-                                goto check; /* goto label check, if current operator has higher precedence than the operator which is in the top of the stack now */
-                            }
-
-                        else push(&operator,(int)expression[i]);                    
+                        
+                         char symbol = (char)pop(&operator); /*we've stored symbols as ASCII in the operator stack,So we're typecasting the corresponding ASCII to operator*/
+                         Calculator(symbol); /*Passing the operator into Calculator function to calculate the value*/
+                         Current_operator  = checkOperator(expression[i]);
+                         Stack_operator    = checkOperator(operator.data[operator.top]);
+                                  
                     }
 
                     else push(&operator,(int)expression[i]);
@@ -84,12 +75,19 @@ int evaluate(char* expression)
                     i++; // << Incrementing to the next character of the expression,YAYYYY!!!
             }   
 
+            
+    
+
     } // << Outer loop ends here :)
 
 
+    //printf("the answer is %d at %d\n",operand.data[operand.top],operand.top);
 
+
+  
 
     return operand.data[operand.top]; /*Return the output value which is stored in the top of the operand stack*/
+
 }
 
 
@@ -100,12 +98,17 @@ int evaluate(char* expression)
  * Simple calculator,that's it mate :)
  * 
  */
+
+
+
 int Calculator(char symbol)
 {
-
+    
     int operand2 = pop(&operand); /*This is kinda ridic right? , You have to know that since we're using stack we're popping out the topmost element,DON'T FORGET THE LIFO ORDER*/
     int operand1 = pop(&operand);/*Since we're popping out the lastest element from the stack we've to handle the order of the operands ourselves*/
 
+    //printf("operand 1 = %d operand 2 = %d and the top is %d and the top element is %d\n",operand1,operand2,operand.top,operand.data[operand.top]);
+    
     switch (symbol)
     {
 
@@ -126,6 +129,7 @@ int Calculator(char symbol)
         break;
 
     default:
+        push(&operand,operand1);
         break;
     }
 
@@ -199,16 +203,15 @@ int checkOperator(char symbol)
         return EXP;
 
     case '(':
-        return L_PAREN;
+        return L_BRACKET;
 
     case ')':
-        return R_PAREN;    
+        return R_BRACKET;    
     
     default:
         return 0;
     }
 
 }
-
 
 
