@@ -10,7 +10,7 @@
 
 #include <stack.h>
 
-void push(Stack *s, int data)
+void push(Stack *s, double data)
 {
     if (!(isFull(s)))
         s->data[++s->top] = data;
@@ -21,7 +21,7 @@ void push(Stack *s, int data)
     }
 }
 
-int pop(Stack *s)
+double pop(Stack *s)
 {
     if (!(isEmpty(s)))
         return s->data[s->top--];
@@ -30,6 +30,15 @@ int pop(Stack *s)
     {
         fprintf(stderr, "\nStackUnderFlow:Stack is Empty");
     }
+}
+
+void view(Stack *s,int range)
+{
+    int i = range;
+    while (i >= 0)
+    {
+        printf("%c\n",(int)s->data[i--]);
+    }   
 }
 
 int isFull(Stack *s)
