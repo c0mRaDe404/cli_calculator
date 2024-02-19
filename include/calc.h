@@ -20,13 +20,19 @@ typedef enum
     //Division
     DIVIDE=3,
 
+    MODULO = 3,
+
     //Exponent
     EXP=4,
 
 
     //Parantheses and brackets
-    L_BRACKET = 0,
-    R_BRACKET = 0
+    L_BRACKET = 1,
+<<<<<<< HEAD
+    R_BRACKET = 1
+=======
+    R_BRACKET = -1
+>>>>>>> update
 
 
 }Token;
@@ -39,7 +45,7 @@ int checkOperator(char);
 
 int isSymbol(char);
 
-int evaluate(char*);
+double evaluate(char*);
 
 int Calculator(char);
 

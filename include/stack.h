@@ -8,16 +8,18 @@
 typedef struct
 {
     int top;
-    int data[SIZE];
+    double data[SIZE];
 
 } Stack;
 
-void push(Stack *, int);
+void push(Stack *, double);
 
-int pop(Stack *);
+double pop(Stack *);
 
 int isFull(Stack *);
 
 int isEmpty(Stack *);
+
+void view(Stack *,int);
 
 #endif

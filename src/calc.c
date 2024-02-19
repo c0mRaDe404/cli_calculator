@@ -1,57 +1,38 @@
 /**
- * 
+ *
  *  @file   main.c
  *  @author cOmRaDe404
  *  @brief  Here's where the lexing and parsing happens.
- * 
+ *
  */
-
-
 
 #include <calc.h>
 #include <stack.h>
 
+Token Current_operator, Stack_operator; /*enum for tokens*/
 
-
-
-
-Token Current_operator,Stack_operator; /*enum for tokens*/
-
-
-Stack operand; /* Stack for operand */
+Stack operand;  /* Stack for operand */
 Stack operator; /* Stack for operator */
 
-
-
-/**
- * 
- *  
- * Function that evaluates the given expression by spliting the expression into tokens
- * 
- * 
- */
-
-int evaluate(char* expression)
+double evaluate(char *expression)
 {
 
     int i = 0;
-    operand.top = operator.top = -1; // Setting up both operand & operator stack's top 
-    
-
+    operand.top = operator.top = - 1;
 
     while (expression[i] != '\0')
     {
- 
-         int Operand = 0;//holds the number which converted from string
 
-              
-        while(isDigit(expression[i]))
+        double Operand = 0;
+
+        while (isDigit(expression[i]))
         {
-            Operand = Operand*10+(expression[i]-'0'); //converts the string to int (char by char conversion)
+            Operand = Operand * 10 + (expression[i] - '0');
             i++;
         }
-        push(&operand,Operand); //pushing the final value of Operand onto operand stack
-       
+        push(&operand, Operand);
+
+        
 
         if (isSymbol(expression[i]))
             {
@@ -103,115 +84,82 @@ int evaluate(char* expression)
 
 int Calculator(char symbol)
 {
-    
-    int operand2 = pop(&operand); /*This is kinda ridic right? , You have to know that since we're using stack we're popping out the topmost element,DON'T FORGET THE LIFO ORDER*/
-    int operand1 = pop(&operand);/*Since we're popping out the lastest element from the stack we've to handle the order of the operands ourselves*/
 
-    //printf("operand 1 = %d operand 2 = %d and the top is %d and the top element is %d\n",operand1,operand2,operand.top,operand.data[operand.top]);
-    
+    double operand2 = pop(&operand);
+    double operand1 = pop(&operand);
+
     switch (symbol)
     {
 
     case '+':
-        push(&operand,operand1+operand2);
+        push(&operand, operand1 + operand2);
         break;
 
     case '-':
-        push(&operand,operand1-operand2);
+        push(&operand, operand1 - operand2);
         break;
-    
+
     case '*':
-        push(&operand,operand1*operand2);
+        push(&operand, operand1 * operand2);
         break;
 
     case '/':
-        push(&operand,operand1/operand2);
+        push(&operand, operand1 / operand2);
+        break;
+
+    case '%':
+        push(&operand,operand1-((int)(operand1 / operand2)*operand2));
+        break;
+
+    case '^':
+        push(&operand,(int)operand1^(int)operand2);
         break;
 
     default:
-        push(&operand,operand1);
+        push(&operand, operand1);
         break;
     }
-
 }
-
-
-
-
-/**
- * Function to find whether the character is digit or something else
- * 
- */
-
-
 
 int isDigit(char value)
 {
-    if(value >= '0' && value <= '9') return 1;
-    else return 0;
+    if (value >= '0' && value <= '9') return 1;
+
+    else  return 0;
 }
-
-
-
-/**
- * 
- * Function to find the symbol among the expression
- *  
- */
-
 
 int isSymbol(char symbol)
 {
-
-    if(symbol >='('|| symbol <= '/') return 1;
-    else return 0;
-
+    switch (symbol)
+    {
+    case '+': return 1;
+    case '-': return 1;
+    case '*': return 1;
+    case '/': return 1;
+    case '(': return 1;
+    case ')': return 1;
+    case ']': return 1;
+    case '[': return 1;
+    case '%': return 1;
+    case '^': return 1;
+    default : return 0;
+    }
 }
-
-
-
-/**
- *  
- * Checking the operator precedence using enum constants
- * 
- */
-
 
 int checkOperator(char symbol)
 {
 
-
     switch (symbol)
     {
-    case '+':
-        return PLUS;
-        
+    case '+': return PLUS;
+    case '-': return MINUS;
+    case '*': return MULTIPLY;
+    case '/': return DIVIDE;
+    case '%': return MODULO;
+    case '^': return EXP;
+    case '(': return L_BRACKET;
+    case ')': return R_BRACKET;
+    default : return 0;
 
-    case '-':
-        return MINUS;
-        
-
-    case '*':
-        return MULTIPLY;
-    
-
-    case '/':
-        return DIVIDE;
-        
-
-    case '^':
-        return EXP;
-
-    case '(':
-        return L_BRACKET;
-
-    case ')':
-        return R_BRACKET;    
-    
-    default:
-        return 0;
     }
-
 }
-
-

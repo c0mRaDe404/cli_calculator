@@ -15,13 +15,18 @@ int main(void)
 {
 
     char exp[100];
-    int value, Running = 1;
+    double value;
 
     puts("\t\t\t\tterminal calculator (ver 1.0.0)\n");
 
-    printf("\n>> ");
-    scanf("%s", exp);
+    while(1) {
+        printf("\n>> ");
+        scanf("%s", exp);
 
-    value = evaluate(exp);
-    printf("\n>> %d\n", value);
+        if (*exp == 'q') return 0;
+        value = evaluate(exp);
+        printf("\n>> %.5lf\n", value);
+    }
+
+
 }
