@@ -10,7 +10,7 @@
 
 #include <stack.h>
 
-void push(Stack *s, int data)
+void push(Stack *s, double data)
 {
     if (!(isFull(s)))
         s->data[++s->top] = data;
@@ -21,7 +21,7 @@ void push(Stack *s, int data)
     }
 }
 
-int pop(Stack *s)
+double pop(Stack *s)
 {
     if (!(isEmpty(s)))
         return s->data[s->top--];
