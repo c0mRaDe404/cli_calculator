@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/comrade/calc/src",
-      "program": "/home/comrade/calc/src/build/Debug/outDebug",
+      "cwd": "/home/comrade/c projects/cli_calculator/src",
+      "program": "/home/comrade/c projects/cli_calculator/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

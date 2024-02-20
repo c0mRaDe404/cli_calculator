@@ -24,9 +24,13 @@ int main(void)
         scanf("%s", exp);
 
         if (*exp == 'q') return 0;
+       // if(*exp == 'c') printf("\033[H\033[J");
+        
+        else
+        {
         value = evaluate(exp);
         printf("\n>> %.5lf\n", value);
+        }
     }
-
 
 }

@@ -9,31 +9,24 @@ typedef enum
 
 	
     // Addition
-    PLUS=2,
+    PLUS=3,
 
     //Subtraction
-    MINUS=2,
+    MINUS=3,
 
     //Multplication
-    MULTIPLY=3,
+    MULTIPLY=4,
 
     //Division
-    DIVIDE=3,
-
-    MODULO = 3,
+    DIVIDE=4,
+    MODULO = 4,
 
     //Exponent
-    EXP=4,
-
+    EXP=5,
 
     //Parantheses and brackets
-    L_BRACKET = 1,
-<<<<<<< HEAD
+    L_BRACKET = 2,
     R_BRACKET = 1
-=======
-    R_BRACKET = -1
->>>>>>> update
-
 
 }Token;
 

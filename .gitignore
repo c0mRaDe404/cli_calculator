@@ -1,5 +1,9 @@
 #ignore this files
-
+./.vscode
 /src/calc
+
+*.o
+*.s
+*.i
 
 

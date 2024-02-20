@@ -25,62 +25,62 @@ double evaluate(char *expression)
 
         double Operand = 0;
 
-        while (isDigit(expression[i]))
+        if (isDigit(expression[i]))
         {
-            Operand = Operand * 10 + (expression[i] - '0');
-            i++;
+            while(isDigit(expression[i]))
+            {
+                Operand = Operand * 10 + (expression[i] - '0');
+                i++;
+            }
+            push(&operand, Operand);
         }
-        push(&operand, Operand);
-
         
 
         if (isSymbol(expression[i]))
+        {
+
+        top:
+            Current_operator = checkOperator(expression[i]);
+            Stack_operator = checkOperator(operator.data[operator.top]);
+
+            if ((!(isEmpty(&operator)))&&(Current_operator <= Stack_operator))
             {
-                    Current_operator  = checkOperator(expression[i]); /* operator we're handling right now*/
-                    Stack_operator    = checkOperator(operator.data[operator.top]); /*operator which is now in the top of the operator stack*/
+                if (Stack_operator == L_BRACKET)
+                {
+                    pop(&operator);
+                }
 
-                    
-                    if(!(isEmpty(&operator))&& Stack_operator >= Current_operator)
-                    {
-                        
-                         char symbol = (char)pop(&operator); /*we've stored symbols as ASCII in the operator stack,So we're typecasting the corresponding ASCII to operator*/
-                         Calculator(symbol); /*Passing the operator into Calculator function to calculate the value*/
-                         Current_operator  = checkOperator(expression[i]);
-                         Stack_operator    = checkOperator(operator.data[operator.top]);
-                                  
-                    }
+                else if(Current_operator == L_BRACKET)
+                {
+                    push(&operator,expression[i]);
+                }
 
-                    else push(&operator,(int)expression[i]);
-                
+                else
+                {
+                    char symbol = (char)pop(&operator);
+                    Calculator(symbol);
+                    goto top;
+                }
+            }
 
-                    i++; // << Incrementing to the next character of the expression,YAYYYY!!!
-            }   
+            else push(&operator,(double) expression[i]);
 
-            
-    
+            i++;
+        }
+    }
 
-    } // << Outer loop ends here :)
+    while (!(isEmpty(&operator)))
+    {
+        char symbol = (char)pop(&operator);
+        Calculator(symbol);
+    }
 
+    // printf("%c is operator and %d is top of the operator stack",(char)operator.data[operator.top+1],operator.top);
 
-    //printf("the answer is %d at %d\n",operand.data[operand.top],operand.top);
+    //view(&operand, 15);
 
-
-  
-
-    return operand.data[operand.top]; /*Return the output value which is stored in the top of the operand stack*/
-
+    pop(&operand);
 }
-
-
-
-
-/**
- *  
- * Simple calculator,that's it mate :)
- * 
- */
-
-
 
 int Calculator(char symbol)
 {
@@ -108,11 +108,11 @@ int Calculator(char symbol)
         break;
 
     case '%':
-        push(&operand,operand1-((int)(operand1 / operand2)*operand2));
+        push(&operand, operand1 - ((int)(operand1 / operand2) * operand2));
         break;
 
     case '^':
-        push(&operand,(int)operand1^(int)operand2);
+        push(&operand, (int)operand1 ^ (int)operand2);
         break;
 
     default:
@@ -123,26 +123,39 @@ int Calculator(char symbol)
 
 int isDigit(char value)
 {
-    if (value >= '0' && value <= '9') return 1;
+    if (value >= '0' && value <= '9')
+        return 1;
 
-    else  return 0;
+    else
+        return 0;
 }
 
 int isSymbol(char symbol)
 {
     switch (symbol)
     {
-    case '+': return 1;
-    case '-': return 1;
-    case '*': return 1;
-    case '/': return 1;
-    case '(': return 1;
-    case ')': return 1;
-    case ']': return 1;
-    case '[': return 1;
-    case '%': return 1;
-    case '^': return 1;
-    default : return 0;
+    case '+':
+        return 1;
+    case '-':
+        return 1;
+    case '*':
+        return 1;
+    case '/':
+        return 1;
+    case '(':
+        return 1;
+    case ')':
+        return 1;
+    case ']':
+        return 1;
+    case '[':
+        return 1;
+    case '%':
+        return 1;
+    case '^':
+        return 1;
+    default:
+        return 0;
     }
 }
 
@@ -151,15 +164,23 @@ int checkOperator(char symbol)
 
     switch (symbol)
     {
-    case '+': return PLUS;
-    case '-': return MINUS;
-    case '*': return MULTIPLY;
-    case '/': return DIVIDE;
-    case '%': return MODULO;
-    case '^': return EXP;
-    case '(': return L_BRACKET;
-    case ')': return R_BRACKET;
-    default : return 0;
-
+    case '+':
+        return PLUS;
+    case '-':
+        return MINUS;
+    case '*':
+        return MULTIPLY;
+    case '/':
+        return DIVIDE;
+    case '%':
+        return MODULO;
+    case '^':
+        return EXP;
+    case '(':
+        return L_BRACKET;
+    case ')':
+        return R_BRACKET;
+    default:
+        return 0;
     }
 }

@@ -3,7 +3,7 @@
 
 CC = gcc
 OBJECTS =  stack.c main.c calc.c
-CFLAGS = -I../include/
+CFLAGS =  -I../include/ -g
 TARGET = calc
 
 $(TARGET): $(OBJECTS)

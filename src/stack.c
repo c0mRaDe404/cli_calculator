@@ -17,7 +17,7 @@ void push(Stack *s, double data)
 
     else
     {
-        fprintf(stderr, "\nStackOverFlowError:Stack is Full");
+        fprintf(stderr, "\nStackOverFlowError:Stack is Full\n");
     }
 }
 
@@ -28,7 +28,7 @@ double pop(Stack *s)
 
     else
     {
-        fprintf(stderr, "\nStackUnderFlow:Stack is Empty");
+        fprintf(stderr, "\nStackUnderFlow:Stack is Empty\n");
     }
 }
 
